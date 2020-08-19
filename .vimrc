@@ -51,7 +51,7 @@ set smartindent                     " 智能的选择对齐方式
 filetype indent on                  " 自适应不同语言的智能缩进
 set expandtab                       " 将制表符扩展为空格
 set tabstop=4                       " 设置编辑时制表符占用空格数
-set shiftwidth=4                    " 设置格式化时制表符占用空格数 
+set shiftwidth=4                    " 设置格式化时制表符占用空格数
 set softtabstop=4                   " 设置4个空格为制表符
 set smarttab                        " 在行和段开始出使用制表符
 
@@ -61,7 +61,7 @@ set nowrap    " 关闭自动折行
 " 如果设置了 自动折行
 if &wrap
     set sidescrolloff=0
-    set linebreak   " 只有遇到指定的符号（比如空格、连词号和其他标点符号），才发生折行。也就是说不会在单词内折行
+    set linebreak   " 只有遇到指定的符号（比如空格、连词号和其他标点符号），才发生折行。也就是说不会在单词内不折行
     set wrapmargin=2 " 指定折行处与编辑窗口的右边缘之间空出的字符数
 else
     " 没有设置自动这行
@@ -98,6 +98,7 @@ set incsearch                       " 开启实时搜索功能
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 缓存设置
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" set backup
 set nobackup                        " 不创建备份文件。默认情况下，文件保存时，会额外创建一个备份文件，他的文件名是在原文件名的末尾，在添加一个波浪号（～）
 set noswapfile                      " 不创建交换文件。交换文件主要用于系统崩溃时恢复文件，文件名的开头是'.'、结尾时'.swap'.
 set autoread                        " 文件在vim之外修改过，自动重新读入
@@ -111,6 +112,8 @@ set history=1000    " Vim 需要记住多少次历史操作
 set backupdir=~/.vim/.backup//
 set directory=~/.vim/.swp//
 set undodir=~/.vim/.undo//
+
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 编码设置
@@ -132,11 +135,24 @@ set fileencoding=utf-8
 " 设置vim的解码列表 'fileencodings' 'fencs'
 set fileencodings=utf-8,gb2312,gb18030,gbk,ucs-bom,cp936,latin1
 
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " UI Config
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-colorscheme pants
-set lazyredraw " redraw only when we need to
+set background=dark
+
+" if( has("termguicolors"))
+"     set termguicolors
+" endif
+
+" colorscheme pants
+" colorscheme dracula
+" colorscheme dream
+" colorscheme monokai
+colorscheme onedark
+" colorscheme tender
+
+" set lazyredraw " redraw only when we need to
 
 
 
@@ -144,7 +160,7 @@ set lazyredraw " redraw only when we need to
 " gvim/macvim设置
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if has("gui_running")
-    "set guifont=Droid\ Sans\ Mono\ Nerd\ Font\ Complete:h18 " 设置字体
+    " set guifont=Droid\ Sans\ Mono\ Nerd\ Font\ Complete:h18 " 设置字体
     set guifont=Consolas:h10
     set lines=40 columns=120
     set guioptions-=m           " 隐藏菜单
@@ -153,11 +169,11 @@ if has("gui_running")
     set guioptions-=r           " 隐藏右侧滚动条
     set guioptions-=b           " 隐藏底部滚动条
     set showtabline=0           " 隐藏Tab栏
-    set guicursor=n-v-c:blockCursor " 设置光标为竖线
+    set guicursor=n-v-c:ver5    " 设置光标为竖线
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Mapping seting 
+" Mapping seting
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " 重新加载 .vimrc 文件
@@ -204,16 +220,23 @@ augroup END
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vim-plug install
+" curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+" https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 call plug#begin('~/.vim/plugged')
-    Plug 'https://github.com/guns/xterm-color-table.vim'    " 256色颜色表
-    Plug 'vim-airline/vim-airline'      " 状态栏
-    Plug 'vim-airline/vim-airline-themes'
-    Plug 'Valloric/YouCompleteMe'   " 自动补全
-    Plug 'scrooloose/nerdtree'  
-    Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-    Plug 'Xuyuanp/nerdtree-git-plugin'
-    Plug 'preservim/nerdcommenter'  " Comment
-    Plug 'ludovicchabant/vim-gutentags'
+Plug 'https://github.com/guns/xterm-color-table.vim'    " 256色颜色表
+Plug 'vim-airline/vim-airline'      " 状态栏
+Plug 'vim-airline/vim-airline-themes'
+Plug 'Valloric/YouCompleteMe'   " 自动补全
+Plug 'scrooloose/nerdtree'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'preservim/nerdcommenter'  " Comment
+Plug 'ludovicchabant/vim-gutentags'
+" Plug 'skywind3000/gutentags_plus'
+Plug 'mattn/emmet-vim'
+Plug 'chiel92/vim-autoformat'
+Plug 'altercation/vim-colors-solarized'
 call plug#end()
 
 
@@ -222,11 +245,11 @@ call plug#end()
 " @airline
 let g:airline#extensions#tabline#enabled = 1 " 是否打开tabline
 let g:airline_powerline_fonts = 1
-set laststatus=2 
+set laststatus=2
 
 
 " nerdtree
-nnoremap <silent> <leader>n :NERDTreeToggle<cr> 
+nnoremap <silent> <leader>n :NERDTreeToggle<cr>
 inoremap <silent> <leader>n <esc>:NERDTreeToggle<cr>
 
 " nerdcommenter
@@ -264,7 +287,7 @@ let g:NERDToggleCheckAllLines = 1
 "     Same as cc except that the commented line(s) are yanked first.
 " <leader>c$ |NERDCommentedToEOL|
 "     Comments the current line from the cursor to the end of line.
-" <leader>cA |NERDCommenterAppend|
+" <leader>cA |NERDCommenterAppend| "
 "     Adds comment delimiters to the end of line and goes into insert mode between them.
 " |NERDCommenterinsert|
 "     Adds comment delimiters at the current cursor position and inserts between.Disabled by default.
@@ -275,24 +298,47 @@ let g:NERDToggleCheckAllLines = 1
 " [count]<leader>cu |NERDCommenterUncomment|
 "     Uncomments the selected line(s).
 
-" vim-gutentags
-" gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级递归
+" gutentags
+
+" gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
 let g:gutentags_project_root = ['.root','.svn','.git','.project']
-" 所生成的数据文件的后缀名
+
+" 所生成的数据文件的名称
 let g:gutentags_ctags_tagfile = '.tags'
-" 将自动生成的tags文件全部放入 ~/.cache/tags 目录中，避免污染工程目录
+
+" 将自动生成的 tags 文件全部放入 ~/.cache/tags 目录中,避免污染工程目录
 let s:vim_tags = expand('~/.cache/tags')
 let g:gutentags_cache_dir = s:vim_tags
-" 检测 ~/.cache/tags ，不存在就新建
+
+" 检测 ~/.cache/tags 不存在就新建
 if !isdirectory(s:vim_tags)
     silent! call mkdir(s:vim_tags,'p')
 endif
+
 " 配置 ctags 的参数
-let g:gutentags_ctags_extra_args = ['--fileds=+niazS','--extra=+q']
+let g:gutentags_ctags_extra_args = ['--fields=+niazS','--extras=+q']
 let g:gutentags_ctags_extra_args += ['--c++-kinds=+pxI']
 let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 
-" 显示debug信息
-" let g:gutentags_trace = 1
 
 
+" Emmet
+" let g:user_emmet_mode='n'       " only enable normal mode functions.
+" let g:user_emmet_mode='inv'     " enable all functions which is eaual to
+let g:user_emmet_mode='a'       " enable all functions in all mode.
+
+" Enable just for html/css
+let g:user_emmet_install_global = 0
+autocmd FileType html,css EmmetInstall
+
+" Redefine trigger key
+" let g:user_emet_leader_key = '<c-y>'
+
+
+
+" vim-autoformat
+" F3 自动化格式代码
+noremap <F3> :Autoformat<cr>
+" let g:autoformat_verbosemode=1
+" 保存时自动格式化代码，针对所支持的文件
+au BufWrite * :Autoformat
