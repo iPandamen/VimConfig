@@ -169,7 +169,7 @@ if has("gui_running")
     set guioptions-=r           " 隐藏右侧滚动条
     set guioptions-=b           " 隐藏底部滚动条
     set showtabline=0           " 隐藏Tab栏
-    set guicursor=n-v-c:block" 设置光标为竖线
+    set guicursor=n-v-c:block   " 设置光标为竖线/ 块状
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -229,30 +229,45 @@ Plug 'vim-airline/vim-airline'      " 状态栏
 Plug 'vim-airline/vim-airline-themes'
 Plug 'Valloric/YouCompleteMe'   " 自动补全
 Plug 'scrooloose/nerdtree'
+Plug 'vim-syntastic/syntastic'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'preservim/nerdcommenter'  " Comment
 Plug 'ludovicchabant/vim-gutentags'
-" Plug 'skywind3000/gutentags_plus'
 Plug 'mattn/emmet-vim'
 Plug 'chiel92/vim-autoformat'
 Plug 'altercation/vim-colors-solarized'
+Plug 'yegappan/taglist'
 call plug#end()
 
 
 
 
-" @airline
+" ************************** @airline **************************
 let g:airline#extensions#tabline#enabled = 1 " 是否打开tabline
 let g:airline_powerline_fonts = 1
 set laststatus=2
 
 
-" nerdtree
+" ************************** nerdtree **************************
 nnoremap <silent> <leader>n :NERDTreeToggle<cr>
 inoremap <silent> <leader>n <esc>:NERDTreeToggle<cr>
 
-" nerdcommenter
+
+" ************************** Syntastic **************************
+" configure syntastic syntax checking to check on open as well as save
+let g:syntastic_check_on_open=1
+let g:syntastic_check_on_wq=0
+let g:syntastic_auto_loc_list=1
+let g:syntastic_always_populate_loc_list=1
+let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatusLlineFlag()}
+set statusline+=%*
+
+
+" ************************** nerdcommenter **************************
 " Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 1
 " Use compact syntax for prettified multi-line comments
@@ -298,8 +313,7 @@ let g:NERDToggleCheckAllLines = 1
 " [count]<leader>cu |NERDCommenterUncomment|
 "     Uncomments the selected line(s).
 
-" gutentags
-
+" *********************** gutentags ***********************
 " gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
 let g:gutentags_project_root = ['.root','.svn','.git','.project']
 
@@ -322,7 +336,7 @@ let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 
 
 
-" Emmet
+" ************************** Emmet **************************
 " let g:user_emmet_mode='n'       " only enable normal mode functions.
 " let g:user_emmet_mode='inv'     " enable all functions which is eaual to
 let g:user_emmet_mode='a'       " enable all functions in all mode.
@@ -336,7 +350,7 @@ autocmd FileType html,css EmmetInstall
 
 
 
-" vim-autoformat
+" ************************** vim-autoformat **************************
 " F3 自动化格式代码
 noremap <F3> :Autoformat<cr>
 " let g:autoformat_verbosemode=1
