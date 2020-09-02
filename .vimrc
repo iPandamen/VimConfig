@@ -82,7 +82,7 @@ set nofoldenable                    " 禁用折叠代码
 set wildmenu                        " vim自身命令行模式智能补全
 set wildmode=longest:list,full
 
-set completeopt-=preview            " 不全是不显示窗口，只显示不全列表
+set completeopt-=preview            " 补全是不显示窗口，只显示补全列表
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -109,9 +109,9 @@ set autochdir                       " 自动切换工作目录。在一个Vim会
 
 set history=1000    " Vim 需要记住多少次历史操作
 " 设置备份文件、交换文件、操作历史文件的保存位置。
-set backupdir=~/.vim/.backup//
-set directory=~/.vim/.swp//
-set undodir=~/.vim/.undo//
+set backupdir=~/.vim/.backup/
+set directory=~/.vim/.swp/
+set undodir=~/.vim/.undo/
 
 
 
