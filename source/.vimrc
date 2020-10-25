@@ -108,6 +108,25 @@ set undofile                        " 保留撤销历史
 set autochdir                       " 自动切换工作目录。在一个Vim会话中打开多个文件的情况下，默认的工作目录是打开的第一个文件目录。该配置可以将工作目录自动切换到正在编辑的文件的目录。
 
 set history=1000    " Vim 需要记住多少次历史操作
+
+
+let s:vim_backup_dir=expand("~/.vim/.backup")
+let s:vim_swp_dir=expand("~/.vim/.swp")
+let s:vim_undo_dir=expand("~/.vim/.undo")
+
+" 检测 ~/.vim/.backup 不存在就新建
+if !isdirectory(s:vim_backup_dir)
+    silent! call mkdir(s:vim_backup_dir,'p')
+endif
+" 检测 ~/.vim/.swp不存在就新建
+if !isdirectory(s:vim_swp_dir)
+    silent! call mkdir(s:vim_swp_dir,'p')
+endif
+" 检测 ~/.vim/.undo不存在就新建
+if !isdirectory(s:vim_undo_dir)
+    silent! call mkdir(s:vim_undo_dir,'p')
+endif
+
 " 设置备份文件、交换文件、操作历史文件的保存位置。
 set backupdir=~/.vim/.backup/
 set directory=~/.vim/.swp/
