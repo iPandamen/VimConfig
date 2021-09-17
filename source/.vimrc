@@ -247,6 +247,7 @@ Plug 'https://github.com/guns/xterm-color-table.vim'    " 256色颜色表
 Plug 'vim-airline/vim-airline'      " 状态栏
 Plug 'vim-airline/vim-airline-themes'
 Plug 'Valloric/YouCompleteMe'   " 自动补全
+Plug 'jiangmiao/auto-pairs'
 Plug 'scrooloose/nerdtree'
 Plug 'vim-syntastic/syntastic'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
