@@ -258,6 +258,7 @@ Plug 'mattn/emmet-vim'
 Plug 'chiel92/vim-autoformat'
 Plug 'altercation/vim-colors-solarized'
 Plug 'yegappan/taglist'
+Plug 'vim-scripts/a.vim'
 call plug#end()
 
 
@@ -375,4 +376,4 @@ autocmd FileType html,css EmmetInstall
 noremap <F3> :Autoformat<cr>
 " let g:autoformat_verbosemode=1
 " 保存时自动格式化代码，针对所支持的文件
-au BufWrite * :Autoformat
+" au BufWrite * :Autoformat
