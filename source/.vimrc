@@ -256,6 +256,7 @@ Plug 'preservim/nerdcommenter'  " Comment
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'mattn/emmet-vim'
 Plug 'chiel92/vim-autoformat'
+Plug 'rhysd/vim-clang-format'
 Plug 'altercation/vim-colors-solarized'
 Plug 'yegappan/taglist'
 Plug 'vim-scripts/a.vim'
@@ -299,6 +300,7 @@ let g:NERDDefaultAlign = 'left'
 let g:NERDAltDelims_java = 1
 " Add your own custom formats or override the defaults
 " let g:NERDCustomDelimiters = { 'c': {'left':'/**','right':'*/'}}
+let g:NERDCustomDelimiters = { 'c': {'left':'//','right':''}}
 " Allow commenting and inverting empty lines (useful when commenting a region)
 let g:NERDCommentEmptyLines = 1
 " Enable trimming of trailing whitespace when uncommenting
