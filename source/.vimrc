@@ -14,6 +14,9 @@ set showcmd                         " 在命令模式下，在底部显示当前
 set showmode                        " 在底部显示当前的模式
 set ruler                           " 在状态栏显示光标的当前位置（位于哪一行哪一列）
 
+" TextEdit might fail if hidden is not set.
+set hidden
+
 " Statusline
 set laststatus=2    " 是否显示状态栏，‘0’表示不显示，‘1’表示只在多窗口时显示，‘2’表示显示
 
@@ -50,9 +53,9 @@ set cinoptions=g0,:0,N-s,(0         " 设置 C/C++ 语言的具体缩进方式
 set smartindent                     " 智能的选择对齐方式
 filetype indent on                  " 自适应不同语言的智能缩进
 set expandtab                       " 将制表符扩展为空格
-set tabstop=4                       " 设置编辑时制表符占用空格数
-set shiftwidth=4                    " 设置格式化时制表符占用空格数
-set softtabstop=4                   " 设置4个空格为制表符
+set tabstop=2                       " 设置编辑时制表符占用空格数
+set shiftwidth=2                    " 设置格式化时制表符占用空格数
+set softtabstop=2                   " 设置4个空格为制表符
 set smarttab                        " 在行和段开始出使用制表符
 
 " set wrap    " 自动折行，即太长的行分成几行显示
@@ -89,7 +92,8 @@ set completeopt-=preview            " 补全是不显示窗口，只显示补全
 " 搜索设置
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set showmatch                       " 光标遇到圆括号、方括号、大括号时，自动高亮对应的另一个圆括号、方括号，大括号
-set hlsearch                        " 高亮显示搜索结果
+" set hlsearch                        " 高亮显示搜索结果
+set nohlsearch                        
 set incsearch                       " 开启实时搜索功能
 
 " set ignorecase                    " 搜索时大小写不敏感
@@ -100,6 +104,7 @@ set incsearch                       " 开启实时搜索功能
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " set backup
 set nobackup                        " 不创建备份文件。默认情况下，文件保存时，会额外创建一个备份文件，他的文件名是在原文件名的末尾，在添加一个波浪号（～）
+set nowritebackup
 set noswapfile                      " 不创建交换文件。交换文件主要用于系统崩溃时恢复文件，文件名的开头是'.'、结尾时'.swap'.
 set autoread                        " 文件在vim之外修改过，自动重新读入
 set autowrite                       " 设置自动保存
@@ -224,6 +229,17 @@ nnoremap <c-j> <c-w>j
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
 
+" 
+" autocmd cursorhold * set nohlsearch
+
+" noremap n:set hlsearch
+" noremap N:set hlsearch
+" noremap /:set hlsearch
+" noremap ?:set hlsearch
+" noremap * *:set hlsearch
+ 
+
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Autocmd
@@ -246,7 +262,9 @@ call plug#begin('~/.vim/plugged')
 Plug 'https://github.com/guns/xterm-color-table.vim'    " 256色颜色表
 Plug 'vim-airline/vim-airline'      " 状态栏
 Plug 'vim-airline/vim-airline-themes'
-Plug 'Valloric/YouCompleteMe'   " 自动补全
+" Plug 'Valloric/YouCompleteMe'   " 自动补全
+Plug 'neoclide/coc.nvim',{'branch':'master','do':'yarn install --frozen-lockfile'}
+
 Plug 'jiangmiao/auto-pairs'
 Plug 'scrooloose/nerdtree'
 Plug 'vim-syntastic/syntastic'
@@ -260,6 +278,7 @@ Plug 'rhysd/vim-clang-format'
 Plug 'altercation/vim-colors-solarized'
 Plug 'yegappan/taglist'
 Plug 'vim-scripts/a.vim'
+Plug 'Yggdroot/LeaderF', {'do': '.install.sh'}
 call plug#end()
 
 
@@ -379,3 +398,162 @@ noremap <F3> :Autoformat<cr>
 " let g:autoformat_verbosemode=1
 " 保存时自动格式化代码，针对所支持的文件
 " au BufWrite * :Autoformat
+"
+
+
+" **************************************************************
+" ************************** coc.nvim **************************
+" **************************************************************
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+if has("nvim-0.5.0") || has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
+
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code.
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder.
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Applying codeAction to the selected region.
+" Example: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap keys for applying codeAction to the current buffer.
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Map function and class text objects
+" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+xmap if <Plug>(coc-funcobj-i)
+omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
+
+" Remap <C-f> and <C-b> for scroll float windows/popups.
+if has('nvim-0.4.0') || has('patch-8.2.0750')
+  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+endif
+
+" Use CTRL-S for selections ranges.
+" Requires 'textDocument/selectionRange' support of language server.
+nmap <silent> <C-s> <Plug>(coc-range-select)
+xmap <silent> <C-s> <Plug>(coc-range-select)
+
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
+
+" Add `:Fold` command to fold current buffer.
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" Add `:OR` command for organize imports of the current buffer.
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" Add (Neo)Vim's native statusline support.
+" NOTE: Please see `:h coc-status` for integrations with external plugins that
+" provide custom statusline: lightline.vim, vim-airline.
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" Mappings for CoCList
+" Show all diagnostics.
+nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions.
+nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+" Show commands.
+nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document.
+nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols.
+nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list.
+nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+
+
+" ************************** coc-highlight **************************
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+
+
+
