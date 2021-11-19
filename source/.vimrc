@@ -278,11 +278,12 @@ Plug 'majutsushi/tagbar'
 Plug 'vim-syntastic/syntastic' " 语法分析
 Plug 'preservim/nerdcommenter'  " Comment
 " Plug 'ludovicchabant/vim-gutentags'
+
 Plug 'mattn/emmet-vim'
 Plug 'chiel92/vim-autoformat'
 Plug 'rhysd/vim-clang-format'
 Plug 'altercation/vim-colors-solarized'
-" Plug 'yegappan/taglist'
+"Plug 'yegappan/taglist'
 
 Plug 'vim-scripts/a.vim'
 
@@ -298,8 +299,11 @@ set laststatus=2
 
 
 " ************************** nerdtree **************************
-nnoremap <silent> <leader>n :NERDTreeToggle<cr>
-inoremap <silent> <leader>n <esc>:NERDTreeToggle<cr>
+" nnoremap <silent> <leader>n :NERDTreeToggle<cr>
+" inoremap <silent> <leader>n <esc>:NERDTreeToggle<cr>
+
+nnoremap <silent> <F2> :NERDTreeToggle<cr>
+inoremap <silent> <F2> <esc>:NERDTreeToggle<cr>
 
 " ************************** tagbar **************************
 let g:tagbar_width=30
@@ -367,24 +371,24 @@ let g:NERDToggleCheckAllLines = 1
 
 " *********************** gutentags ***********************
 " gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
-" let g:gutentags_project_root = ['.root','.svn','.git','.project']
+let g:gutentags_project_root = ['.root','.svn','.git','.project']
 
 " 所生成的数据文件的名称
-" let g:gutentags_ctags_tagfile = '.tags'
+let g:gutentags_ctags_tagfile = '.tags'
 
 " 将自动生成的 tags 文件全部放入 ~/.cache/tags 目录中,避免污染工程目录
-" let s:vim_tags = expand('~/.cache/tags')
-" let g:gutentags_cache_dir = s:vim_tags
+let s:vim_tags = expand('~/.cache/tags')
+let g:gutentags_cache_dir = s:vim_tags
 
 " 检测 ~/.cache/tags 不存在就新建
-" if !isdirectory(s:vim_tags)
-    " silent! call mkdir(s:vim_tags,'p')
-" endif
+if !isdirectory(s:vim_tags)
+    silent! call mkdir(s:vim_tags,'p')
+endif
 
 " 配置 ctags 的参数
-" let g:gutentags_ctags_extra_args = ['--fields=+niazS','--extras=+q']
-" let g:gutentags_ctags_extra_args += ['--c++-kinds=+pxI']
-" let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+let g:gutentags_ctags_extra_args = ['--fields=+niazS','--extras=+q']
+let g:gutentags_ctags_extra_args += ['--c++-kinds=+pxI']
+let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 
 
 
@@ -408,11 +412,9 @@ noremap <F3> :Autoformat<cr>
 " let g:autoformat_verbosemode=1
 " 保存时自动格式化代码，针对所支持的文件
 " au BufWrite * :Autoformat
-"
 
 
 " ************************** coc.nvim **************************
-
 let g:coc_disable_startup_warning = 1
 
 " Always show the signcolumn, otherwise it would shift the text each time
@@ -563,7 +565,6 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 " ************************** rainbow **************************
 let g:rainbow_active = 1
-
 
 " ************************** indentLine **************************
 let g:indent_guides_guide_size  = 1  " 指定对齐线的尺寸 
