@@ -228,6 +228,8 @@ nnoremap <c-k> <c-w>k
 nnoremap <c-j> <c-w>j
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
+nnoremap <leader><leader>+ <c-w>+
+nnoremap <leader><leader>- <c-w>-
 
 " 
 " autocmd cursorhold * set nohlsearch
@@ -299,11 +301,8 @@ set laststatus=2
 
 
 " ************************** nerdtree **************************
-" nnoremap <silent> <leader>n :NERDTreeToggle<cr>
-" inoremap <silent> <leader>n <esc>:NERDTreeToggle<cr>
-
-nnoremap <silent> <F2> :NERDTreeToggle<cr>
-inoremap <silent> <F2> <esc>:NERDTreeToggle<cr>
+nnoremap <silent> <leader><leader>n :NERDTreeToggle<cr>
+inoremap <silent> <leader><leader>n <esc>:NERDTreeToggle<cr>
 
 " ************************** tagbar **************************
 let g:tagbar_width=30
