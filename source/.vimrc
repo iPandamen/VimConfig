@@ -279,13 +279,13 @@ Plug 'majutsushi/tagbar'
 
 Plug 'vim-syntastic/syntastic' " 语法分析
 Plug 'preservim/nerdcommenter'  " Comment
-" Plug 'ludovicchabant/vim-gutentags'
+Plug 'ludovicchabant/vim-gutentags'
 
 Plug 'mattn/emmet-vim'
 Plug 'chiel92/vim-autoformat'
 Plug 'rhysd/vim-clang-format'
 Plug 'altercation/vim-colors-solarized'
-"Plug 'yegappan/taglist'
+Plug 'yegappan/taglist'
 
 Plug 'vim-scripts/a.vim'
 
