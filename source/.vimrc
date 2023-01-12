@@ -93,7 +93,7 @@ set completeopt-=preview            " 补全是不显示窗口，只显示补全
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set showmatch                       " 光标遇到圆括号、方括号、大括号时，自动高亮对应的另一个圆括号、方括号，大括号
 " set hlsearch                        " 高亮显示搜索结果
-set nohlsearch                        
+set nohlsearch
 set incsearch                       " 开启实时搜索功能
 
 " set ignorecase                    " 搜索时大小写不敏感
@@ -275,6 +275,7 @@ Plug 'scrooloose/nerdtree' " 目录树
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
+Plug 'easymotion/vim-easymotion'
 Plug 'majutsushi/tagbar'  
 
 Plug 'vim-syntastic/syntastic' " 语法分析
@@ -291,6 +292,10 @@ Plug 'vim-scripts/a.vim'
 
 Plug 'Yggdroot/indentLine'
 Plug 'Yggdroot/LeaderF', {'do': '.install.sh'}
+
+Plug 'camspiers/animate.vim'
+Plug 'camspiers/lens.vim'
+
 call plug#end()
 
 
@@ -569,5 +574,9 @@ let g:rainbow_active = 1
 let g:indent_guides_guide_size  = 1  " 指定对齐线的尺寸 
 let g:indent_guides_start_level = 1  " 从第二层开始可视化显示缩进
 
+" vim-easymotion
+let g:EasyMotion_smartcase = 1
+map <leader>w <Plug>(easymotion-bd-w)
+nmap <leader>w <Plug>(easymotion-overwin-w)
 
 
