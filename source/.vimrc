@@ -268,7 +268,7 @@ Plug 'vim-airline/vim-airline-themes'
 " Plug 'Valloric/YouCompleteMe'   " 自动补全
 Plug 'neoclide/coc.nvim',{'branch':'master','do':'yarn install --frozen-lockfile'}
 
-Plug 'jiangmiao/auto-pairs'
+Plug 'jiangmiao/auto-pairs' " 自动配对括号
 Plug 'luochen1990/rainbow' " 提供嵌套括号高亮的一个工具
 
 Plug 'scrooloose/nerdtree' " 目录树
